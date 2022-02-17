@@ -71,4 +71,6 @@ gem "material_icons", "~> 2.2"
 
 gem "faker", "~> 2.19"
 
-gem "stimulus_reflex", "~> 3.4"
+gem "stimulus_reflex", "~> 3.5.0.pre8"
+
+gem "cable_ready", "~> 5.0.0.pre8"
