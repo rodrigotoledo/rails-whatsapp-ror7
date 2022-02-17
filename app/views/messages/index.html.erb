@@ -10,7 +10,7 @@
       </div>
       <div class="chat_header_icons">
         <%= material_icon.more_vert %>
-        <%= material_icon.attach_file %>
+        <%=link_to material_icon.close, destroy_user_session_path, method: :delete %>
       </div>
     </div>
 

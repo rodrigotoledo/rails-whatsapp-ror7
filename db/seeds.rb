@@ -1,4 +1,4 @@
-user = User.create(email: 'rodrigo@rtoledo.inf.br', password: 'aassdd', password_confirmation: 'aassdd')
+user = User.create(email: 'faker@test.com', password: 'aassdd', password_confirmation: 'aassdd')
 
 users = []
 10.times.each do
