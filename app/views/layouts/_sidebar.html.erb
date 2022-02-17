@@ -1,0 +1,21 @@
+<div class="sidebar">
+  <div class="sidebar_container">
+    <div class="sidebar_header">
+      <%= material_icon.account_circle.md_48 %>
+      <div class="sidebar_icons_container">
+        <%= material_icon.chat %>
+        <%= material_icon.more_vert %>
+      </div>
+    </div>
+    <div class="sidebar_search">
+      <%= material_icon.search %>
+      <%= text_field_tag :search, '', placeholder: 'Search in chats' %>
+    </div>
+    <button class="sidebar_button">Start a new chat</button>
+
+    <%= turbo_stream_from "sidebar" %>
+    <div class="sidebar_chat_list" id="sidebar_chat_list_<%=current_user.id%>">
+      <%= render partial: 'layouts/chat', collection: current_user.users.uniq, as: :user %>
+    </div>
+  </div>
+</div>

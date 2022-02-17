@@ -1,0 +1,38 @@
+<div class="main_container">
+  <%= render 'layouts/sidebar' %>
+  <div class="chat_container">
+    <div class="chat_header">
+      <%= material_icon.account_circle.md_48 %>
+
+      <div class="chat_header_information">
+        <h3><%=@user.try(:email)%></h3>
+        <p><%=l @messages.last.try(:created_at) rescue 'soon'%></p>
+      </div>
+      <div class="chat_header_icons">
+        <%= material_icon.more_vert %>
+        <%= material_icon.attach_file %>
+      </div>
+    </div>
+
+    <%= turbo_stream_from "messages" %>
+    <div class="message_container" id="message_container_<%=current_user.id%>-<%=params[:user]%>">
+      <% @messages.each do |message| %>
+        <% if message.author_id == current_user.id %>
+          <%=render partial: 'content_sender', locals: {message: message}%>
+        <% else %>
+          <%=render partial: 'content_receiver', locals: {message: message}%>
+        <% end %>
+      <% end %>
+
+      <div class="end_of_message"></div>
+    </div>
+    <%= form_with model: Message.new, data: { reflex: "submit->MessageReflex#submit" }, class: 'input_container' do |form| %>
+      <%= form.hidden_field :author_id, value: current_user.id %>
+      <%= form.hidden_field :user_id, value: params[:user] %>
+      <%= form.text_field :text_message, class: "input", data: { reflex: "change->MessageReflex#submit", reflex_dataset: "combined" } %>
+      <%= form.button type: 'submit' do %>
+        <%= material_icon.send %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

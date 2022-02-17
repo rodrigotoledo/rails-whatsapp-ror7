@@ -1,0 +1,6 @@
+<div class="sidebar_container">
+  <div class="sidebar_avatar">
+    <%= material_icon.account_circle %>
+  </div>
+  <p><%=link_to user.email, messages_path(user: user.id)%></p>
+</div>
