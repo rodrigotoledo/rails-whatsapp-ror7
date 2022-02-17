@@ -29,7 +29,7 @@
     <%= form_with model: Message.new, data: { reflex: "submit->MessageReflex#submit" }, class: 'input_container' do |form| %>
       <%= form.hidden_field :author_id, value: current_user.id %>
       <%= form.hidden_field :user_id, value: params[:user] %>
-      <%= form.text_field :text_message, class: "input", data: { reflex: "change->MessageReflex#submit", reflex_dataset: "combined" } %>
+      <%= form.text_field :message, class: "input" %>
       <%= form.button type: 'submit' do %>
         <%= material_icon.send %>
       <% end %>

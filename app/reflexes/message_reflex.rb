@@ -31,7 +31,18 @@ class MessageReflex < ApplicationReflex
   #   end
   #
   # Learn more at: https://docs.stimulusreflex.com/reflexes#reflex-classes
+  before_reflex do
+    @message = Message.new
+    @message.assign_attributes(message_params)
+  end
 
-  def send_message
+  def submit
+    @message.save
+  end
+
+  private
+
+  def message_params
+    params.require(:message).permit(:message, :user_id, :author_id)
   end
 end
