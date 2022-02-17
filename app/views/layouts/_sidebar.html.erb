@@ -2,6 +2,7 @@
   <div class="sidebar_container">
     <div class="sidebar_header">
       <%= material_icon.account_circle.md_48 %>
+      <%= truncate current_user.email %>
       <div class="sidebar_icons_container">
         <%= material_icon.chat %>
         <%= material_icon.more_vert %>
@@ -9,10 +10,10 @@
     </div>
     <div class="sidebar_search">
       <%= material_icon.search %>
-      <%= text_field_tag :search, '', placeholder: 'Search in chats' %>
+      <%= select_tag :search, options_for_select(users_except_current.map{|t| [truncate(t.email), t.id]},params[:user]),
+        prompt: 'Select an User',
+        onchange: ("window.location.href = '#{messages_path}?user='+document.getElementById(\"search\").value;") %>
     </div>
-    <button class="sidebar_button">Start a new chat</button>
-
     <%= turbo_stream_from "sidebar" %>
     <div class="sidebar_chat_list" id="sidebar_chat_list_<%=current_user.id%>">
       <%= render partial: 'layouts/chat', collection: current_user.users.uniq, as: :user %>

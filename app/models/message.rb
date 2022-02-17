@@ -12,5 +12,8 @@ class Message < ApplicationRecord
   after_destroy_commit do
     broadcast_remove_to "messages", target: "message_container_#{self.user_id}-#{self.author_id}"
     broadcast_remove_to "messages", target: "message_container_#{self.author_id}-#{self.user_id}"
+
+    broadcast_remove_to "sidebar", target: "sidebar_chat_list_#{self.user_id}"
+    broadcast_remove_to "sidebar", target: "sidebar_chat_list_#{self.author_id}"
   end
 end
